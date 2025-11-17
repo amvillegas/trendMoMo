@@ -1,0 +1,24 @@
+Package: trendMoMo
+Type: Package
+Title: Prototype Trend Extensions to StMoMo
+Version: 0.0.0.9000
+Description: Prototype extension to the Stochastic Mortality Modelling (StMoMo) framework
+    that adds baseline linear improvement rates and broken-trend components
+    at user-specified calendar years. Includes identifiability constraint handlers,
+    coefficient extraction, and plotting helpers. This is research code.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: 
+    R (>= 3.6)
+Imports:
+    stats,
+    graphics,
+    utils,
+    methods,
+    StMoMo
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
