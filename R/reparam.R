@@ -41,7 +41,7 @@
 #' \eqn{\kappa^{(1)}_t} (i.e., trend-break extensions of the APCI model).
 #'
 #' @param fittedModel Output of \code{\link{fitTrendMoMo}} or \code{\link{fitTrendMoMo2}}
-#'   containing \code{$coef_adj} = \{a_x, d_x, d^{(j)}_x, \kappa^{(1)}_t, \gamma_{t-x}\} after
+#'   containing \code{$coef_adj} = \{a_x, d_x, d^{(j)}_x, \eqn{\kappa^{(1)}}_t, \eqn{\gamma_{t-x}}\} after
 #'   identifiability constraints are applied.
 #' @param dx_new Numeric vector \eqn{\tilde d_x} (length equal to the number of ages) giving the
 #'   **long-term** age-specific improvement assumption to anchor to.
@@ -95,6 +95,62 @@ getTrendDeviationParam <- function(fittedModel, dx_new){
       }
     }
   }
+  fittedModel$coef_adj <- coef_new
+  fittedModel
+}
+
+
+#' Reparameterise to have zero-mean trend in kt1 up to a given year
+#'
+#' Adjusts the fitted Trend-MoMo parameters so that the period factor \eqn{\kappa^{(1)}_t}
+#' has zero mean up to a specified year \eqn{t^*}, by shifting \eqn{\kappa^{(1)}_t} and
+#' adjusting the age-specific intercepts \eqn{a_x}, the \eqn{d_x} and \eqn{d^{(j)}_x}
+#' components accordingly.
+#'
+#' @details
+#'
+#' This is useful for example when we want the trend component \eqn{\kappa^{(1)}_t} to
+#' represent deviations from a long-term trend up to a certain year \eqn{t^*}, for example
+#' 2019 to consider pre-COVID-19 mortality levels.
+#'
+#'@param fittedModel Output of \code{\link{fitTrendMoMo}} or \code{\link{fitTrendMoMo2}}
+#'  containing \code{$coef_adj} = \{a_x, d_x, d^{(j)}_x, \eqn{\kappa^{(1)}_t}, \eqn{\gamma_{t-x}}\} after
+#'  identifiability constraints are applied.
+#' @param lastYear Numeric; the last year \eqn{t^*} up to which to enforce zero-trend in \eqn{\kappa^{(1)}_t}.
+#'
+#' @return
+#' The input \code{fittedModel} with \code{$coef_adj} replaced by the adjusted lists:
+#' \itemize{
+#'   \item \code{kt1} adjusted to have zero mean up to \eqn{t^*};
+#'   \item \code{ax}, \code{dx}, \code{dx_list} adjusted accordingly;
+#'   \item other components (e.g., \code{gc}) unchanged.
+#' }
+#'
+#' @examples
+#' # After fitting and constraining:
+#' #   fit <- fitTrendMoMo(mod, df)
+#' # Adjust so that kt1 has zero mean up to 2019
+#' fit_zero_trend <- reparamZeroTrendKt1(fit, lastYear = 2019)
+#' # Now fit_zero_trend$coef_adj$kt1 has zero mean up to 2019
+#'
+#' @seealso
+#' \code{\link{fitTrendMoMo}}, \code{\link{fitTrendMoMo2}}
+#' \code{\link{applyIdentifiabilityConstraints}},
+#' \code{\link{applyIdentifiabilityConstraints2}},
+#' \code{\link{getTrendDeviationParam}}
+#'
+#' @references
+#' Villegas, A. M., & Arik, Ayse (2025).
+#' *Further Properties of APC Models with Trend Breaks*.
+#'
+#' @aliases reparamZeroTrendKt1 reparamZeroTrendKappa1
+#' @export
+reparamZeroTrendKt1 <- function(fittedModel, lastYear){
+   coef_new <- applyIdentifiabilityConstraintsTrends(
+    coef = fittedModel$coef_adj,
+    modelFit = fittedModel$modelFit,
+    lastYear = lastYear
+  )
   fittedModel$coef_adj <- coef_new
   fittedModel
 }

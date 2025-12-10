@@ -9,7 +9,7 @@ getTrendDeviationParam(fittedModel, dx_new)
 }
 \arguments{
 \item{fittedModel}{Output of \code{\link{fitTrendMoMo}} or \code{\link{fitTrendMoMo2}}
-containing \code{$coef_adj} = \{a_x, d_x, d^{(j)}_x, \kappa^{(1)}\emph{t, \gamma}{t-x}\} after
+containing \code{$coef_adj} = \{a_x, d_x, d^{(j)}_x, \eqn{\kappa^{(1)}}_t, \eqn{\gamma_{t-x}}\} after
 identifiability constraints are applied.}
 
 \item{dx_new}{Numeric vector \eqn{\tilde d_x} (length equal to the number of ages) giving the

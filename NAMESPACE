@@ -2,10 +2,13 @@
 
 export(applyIdentifiabilityConstraints)
 export(applyIdentifiabilityConstraints2)
+export(applyIdentifiabilityConstraintsTrends)
 export(fitTrendMoMo)
 export(fitTrendMoMo2)
+export(fittedRatesTrendMoMo)
 export(getCoefficients)
 export(getTrendDeviationParam)
 export(plotTrendMoMo)
+export(reparamZeroTrendKt1)
 export(trendMoMo)
 export(trendModelFit)
