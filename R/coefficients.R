@@ -3,7 +3,6 @@
 #' @return A list with elements \code{ax}, \code{kt1}, \code{dx}, \code{dx_list}, \code{gc}.
 #' @export
 getCoefficients <- function(modelFit){
-  stopifnot(inherits(modelFit, "trendMoMoFit"))
   modelCoef <- modelFit$fit$coefficients
 
   #ax

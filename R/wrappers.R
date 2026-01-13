@@ -6,7 +6,9 @@ fitTrendMoMo <- function(model, data){
   mf <- trendModelFit(model, data)
   cf <- getCoefficients(mf)
   ca <- applyIdentifiabilityConstraints(cf, mf)
-  list(modelFit = mf, coef = cf, coef_adj = ca)
+  out <- list(modelFit = mf, coef = cf, coef_adj = ca)
+  class(out) <- "trendMoMoFit"
+  out
 }
 
 #' Fit–extract–constrain (projection constraints)
@@ -17,5 +19,7 @@ fitTrendMoMo2 <- function(model, data){
   mf <- trendModelFit(model, data)
   cf <- getCoefficients(mf)
   ca <- applyIdentifiabilityConstraints2(cf, mf)
-  list(modelFit = mf, coef = cf, coef_adj = ca)
+  out <- list(modelFit = mf, coef = cf, coef_adj = ca)
+  class(out) <- "trendMoMoFit"
+  out
 }

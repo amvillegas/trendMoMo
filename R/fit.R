@@ -29,6 +29,5 @@ trendModelFit <- function(model, data){
   years.fit <- sort(unique(data$t))
   out <- list(fit = fit, model = model, ages.fit = ages.fit,
               years.fit = years.fit)
-  class(out) <- "trendMoMoFit"
   out
 }

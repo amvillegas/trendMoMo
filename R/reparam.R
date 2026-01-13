@@ -146,6 +146,8 @@ getTrendDeviationParam <- function(fittedModel, dx_new){
 #' @aliases reparamZeroTrendKt1 reparamZeroTrendKappa1
 #' @export
 reparamZeroTrendKt1 <- function(fittedModel, lastYear){
+  #check inputs
+  stopifnot(inherits(fittedModel, "trendMoMoFit"))
    coef_new <- applyIdentifiabilityConstraintsTrends(
     coef = fittedModel$coef_adj,
     modelFit = fittedModel$modelFit,
